@@ -2,6 +2,10 @@ import { createSlice, configureStore } from "@reduxjs/toolkit";
 
 const initialToDoState = {
   counter: 0,
+  candidates: [
+    { id: 1, name: "Do Assignment", remarks: "Complete by 12 Dec" },
+    { id: 2, name: "Do Assignment", remarks: "Complete by 12 Dec" },
+  ],
 };
 
 const toDoSlice = createSlice({

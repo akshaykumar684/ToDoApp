@@ -1,19 +1,18 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { toDoActions } from "./store/redux-store";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Container, Row, Col } from "react-bootstrap";
+import ToDoList from "./Component/ToDoList";
 const App = () => {
-  const counter = useSelector((state) => state.toDoStates.counter);
-  const dispatch = useDispatch();
-
-  const incrementHander = () => {
-    dispatch(toDoActions.increment());
-  };
-
   return (
     <div>
-      <h1>To Do App</h1>
-      <h2>{`Counter: ${counter}`}</h2>
-      <button onClick={incrementHander}>Increment</button>
+      <Container>
+        <Row>
+          <Col>
+            <h1> Task Lists</h1>
+            <ToDoList />
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };
