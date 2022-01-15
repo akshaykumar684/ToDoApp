@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { toDoActions } from "../store/redux-store";
+import { toDoActions } from "../store/task-state";
+import { toastAction } from "../store/toast-state";
 import taskAction from "../store/taskAction";
 
 const TaskModalForm = () => {
@@ -25,28 +26,33 @@ const TaskModalForm = () => {
       dispatch(toDoActions.updateTask(task));
     }
 
+    setTaskId(undefined);
+    setTaskName("");
+    setTaskRemarks("");
+
     dispatch(toDoActions.hideModal());
+    dispatch(
+      toastAction.showToast({
+        isOperationSucessfull: true,
+        msg: "Candidate Created Successfully",
+      })
+    );
   };
 
   const handleClose = () => {
     dispatch(toDoActions.hideModal());
   };
-  console.log(selectedTask);
-
   const title =
     currentTaskAction === taskAction.create ? "Add Task" : "Edit Task";
 
   useEffect(() => {
-    console.log(selectedTask);
-
     if (currentTaskAction === taskAction.update) {
-      console.log(selectedTask);
       const { id, name, remarks } = selectedTask;
       setTaskId(id);
       setTaskName(name);
       setTaskRemarks(remarks);
     }
-  }, [selectedTask]);
+  }, [selectedTask, currentTaskAction]);
 
   const taskNameChangeHandler = (event) => {
     setTaskName(event.target.value);

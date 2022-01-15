@@ -1,6 +1,6 @@
 import { Button } from "react-bootstrap";
-import { useSelector, useDispatch } from "react-redux";
-import { toDoActions } from "../store/redux-store";
+import { useDispatch } from "react-redux";
+import { toDoActions } from "../store/task-state";
 import taskAction from "../store/taskAction";
 
 const ToDoItem = (props) => {
@@ -12,7 +12,7 @@ const ToDoItem = (props) => {
     );
   };
   const deleteTaskHandler = () => {
-    console.log("task deleted");
+    dispatch(toDoActions.deleteTask(props));
   };
   return (
     <tr>

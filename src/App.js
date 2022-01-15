@@ -4,10 +4,13 @@ import { Container, Row, Col } from "react-bootstrap";
 import ToDoList from "./Component/ToDoList";
 import TaskModalForm from "./Component/TaskModalForm";
 import { Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { toDoActions } from "./store/redux-store";
+import { useSelector, useDispatch } from "react-redux";
+import { toDoActions } from "./store/task-state";
 import taskAction from "./store/taskAction";
+import Toasts from "./Component/UI/Toast";
 const App = () => {
+  const toastData = useSelector((state) => state.toastStates);
+
   const dispatch = useDispatch();
   const addTaskHandler = () => {
     dispatch(
@@ -16,6 +19,8 @@ const App = () => {
   };
   return (
     <div>
+      <Toasts Data={toastData} />
+
       <TaskModalForm />
       <Container>
         <Row>
