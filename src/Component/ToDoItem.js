@@ -1,9 +1,15 @@
 import { Button } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { toDoActions } from "../store/redux-store";
+import taskAction from "../store/taskAction";
 
 const ToDoItem = (props) => {
   const { id, name, remarks } = props;
+  const dispatch = useDispatch();
   const editTaskHandler = () => {
-    console.log("task edited");
+    dispatch(
+      toDoActions.showModal({ action: taskAction.update, selectedTask: props })
+    );
   };
   const deleteTaskHandler = () => {
     console.log("task deleted");
