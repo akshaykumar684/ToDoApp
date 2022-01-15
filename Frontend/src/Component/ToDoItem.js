@@ -2,7 +2,8 @@ import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { toDoActions } from "../store/task-state";
 import taskAction from "../store/taskAction";
-
+import axiosFetch from "../axios/axios-config";
+import { toastAction } from "../store/toast-state";
 const ToDoItem = (props) => {
   const { id, name, remarks } = props;
   const dispatch = useDispatch();
@@ -12,7 +13,34 @@ const ToDoItem = (props) => {
     );
   };
   const deleteTaskHandler = () => {
-    dispatch(toDoActions.deleteTask(props));
+    axiosFetch
+      .delete(`/ToDoTask/${id}`)
+      .then((res) => {
+        if (res.status === 204) {
+          dispatch(toDoActions.deleteTask(props));
+          dispatch(
+            toastAction.showToast({
+              isOperationSucessfull: true,
+              msg: "Task Deleted Successfully",
+            })
+          );
+        } else {
+          dispatch(
+            toastAction.showToast({
+              isOperationSucessfull: false,
+              msg: "Error while deleting Task",
+            })
+          );
+        }
+      })
+      .catch((err) => {
+        dispatch(
+          toastAction.showToast({
+            isOperationSucessfull: false,
+            msg: "Error while deleting Task",
+          })
+        );
+      });
   };
   return (
     <tr>

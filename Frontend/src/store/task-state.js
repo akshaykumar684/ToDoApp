@@ -5,18 +5,18 @@ const initialToDoState = {
   action: undefined,
   taskId: undefined,
   selectedTask: null,
-  tasks: [
-    { id: 1, name: "Do Assignment", remarks: "Complete by 12 Dec" },
-    { id: 2, name: "Do Assignment", remarks: "Complete by 12 Dec" },
-  ],
+  tasks: [],
 };
 
 const toDoSlice = createSlice({
   name: "toDoStates",
   initialState: initialToDoState,
   reducers: {
+    initializeTasks(state, payload) {
+      state.tasks = payload.payload;
+    },
     addTask(state, payload) {
-      state.tasks.unshift(payload.payload);
+      state.tasks.push(payload.payload);
     },
     updateTask(state, payload) {
       const index = state.tasks.findIndex(

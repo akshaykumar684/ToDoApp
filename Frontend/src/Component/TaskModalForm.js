@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { toDoActions } from "../store/task-state";
 import { toastAction } from "../store/toast-state";
 import taskAction from "../store/taskAction";
+import axiosFetch from "../axios/axios-config";
 
 const TaskModalForm = () => {
   const [taskId, setTaskId] = useState(undefined);
@@ -18,12 +19,70 @@ const TaskModalForm = () => {
     event.preventDefault();
 
     if (currentTaskAction === taskAction.create) {
-      const task = { id: Math.random(), name: taskName, remarks: taskRemarks };
-
-      dispatch(toDoActions.addTask(task));
+      axiosFetch
+        .post(`/ToDoTask`, {
+          name: taskName,
+          remarks: taskRemarks,
+        })
+        .then((res) => {
+          const { status, data } = res;
+          if (status === 200 || status === 201) {
+            dispatch(toDoActions.addTask(data));
+            dispatch(
+              toastAction.showToast({
+                isOperationSucessfull: true,
+                msg: "Task Created Successfully",
+              })
+            );
+          } else {
+            dispatch(
+              toastAction.showToast({
+                isOperationSucessfull: false,
+                msg: "Something went wrong while creating task",
+              })
+            );
+          }
+        })
+        .catch((err) => {
+          dispatch(
+            toastAction.showToast({
+              isOperationSucessfull: false,
+              msg: "Something went wrong while creating task",
+            })
+          );
+        });
     } else {
       const task = { id: taskId, name: taskName, remarks: taskRemarks };
-      dispatch(toDoActions.updateTask(task));
+      axiosFetch
+        .put(`/ToDoTask/${taskId}`, task)
+        .then((res) => {
+          const { status, data } = res;
+          if (status === 200 || status === 201) {
+            dispatch(toDoActions.updateTask(data));
+            dispatch(
+              toastAction.showToast({
+                isOperationSucessfull: true,
+                msg: "Task Updated Successfully",
+              })
+            );
+          } else {
+            dispatch(
+              toastAction.showToast({
+                isOperationSucessfull: false,
+                msg: "Something went wrong while updating task",
+              })
+            );
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          dispatch(
+            toastAction.showToast({
+              isOperationSucessfull: false,
+              msg: "Something went wrong while updating task",
+            })
+          );
+        });
     }
 
     setTaskId(undefined);
