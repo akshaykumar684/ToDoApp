@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Table } from "react-bootstrap";
 
 const ToDoList = () => {
-  const todoList = useSelector((state) => state.toDoStates.candidates);
+  const todoList = useSelector((state) => state.toDoStates.tasks);
   return (
     <Table>
       <thead>

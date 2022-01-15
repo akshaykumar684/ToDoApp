@@ -1,8 +1,7 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 
 const initialToDoState = {
-  counter: 0,
-  candidates: [
+  tasks: [
     { id: 1, name: "Do Assignment", remarks: "Complete by 12 Dec" },
     { id: 2, name: "Do Assignment", remarks: "Complete by 12 Dec" },
   ],
@@ -12,8 +11,19 @@ const toDoSlice = createSlice({
   name: "toDoStates",
   initialState: initialToDoState,
   reducers: {
-    increment(state) {
-      state.counter = state.counter + 1;
+    addTask(state, payload) {
+      state.tasks.add(payload.payload);
+    },
+    updateTask(state, payload) {
+      const index = state.tasks.findIndex(
+        (task) => task.id === payload.payload.id
+      );
+      state.tasks[index] = payload.payload;
+    },
+    deleteTask(state, payload) {
+      state.tasks = state.tasks.filter(
+        (task) => task.id !== payload.payload.id
+      );
     },
   },
 });
