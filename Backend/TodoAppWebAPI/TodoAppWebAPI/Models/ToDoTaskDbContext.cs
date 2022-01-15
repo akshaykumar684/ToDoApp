@@ -10,6 +10,6 @@ namespace TodoAppWebAPI.Models
 
         }
 
-        public DbSet<ToDoTask> Candidates { get; set; }
+        public DbSet<ToDoTask> Tasks { get; set; }
     }
 }
