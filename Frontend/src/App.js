@@ -10,6 +10,8 @@ import taskAction from "./store/taskAction";
 import { toastAction } from "./store/toast-state";
 import Toasts from "./Component/UI/Toast";
 import axiosFetch from "./axios/axios-config";
+import AppMessage from "./Common/AppMessage";
+import "./App.css";
 const App = () => {
   const toastData = useSelector((state) => state.toastStates);
 
@@ -28,7 +30,7 @@ const App = () => {
         dispatch(
           toastAction.showToast({
             isOperationSucessfull: true,
-            msg: "Data Fetched Successfully",
+            msg: AppMessage.DataFetchSuccessful,
           })
         );
       })
@@ -37,11 +39,11 @@ const App = () => {
         dispatch(
           toastAction.showToast({
             isOperationSucessfull: false,
-            msg: "Something went wrong while fetching the data",
+            msg: AppMessage.DataFetchError,
           })
         );
       });
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
@@ -56,13 +58,15 @@ const App = () => {
           </Col>
         </Row>
       </Container>
-      <Button
-        variant="primary"
-        style={{ margin: "1em" }}
-        onClick={addTaskHandler}
-      >
-        Add
-      </Button>
+      <div className="buttonContainer">
+        <Button
+          variant="primary"
+          style={{ margin: "1em" }}
+          onClick={addTaskHandler}
+        >
+          Add
+        </Button>
+      </div>
     </div>
   );
 };

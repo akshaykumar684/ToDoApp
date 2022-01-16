@@ -5,6 +5,7 @@ import { toDoActions } from "../store/task-state";
 import { toastAction } from "../store/toast-state";
 import taskAction from "../store/taskAction";
 import axiosFetch from "../axios/axios-config";
+import AppMessage from "../Common/AppMessage";
 
 const TaskModalForm = () => {
   const [taskId, setTaskId] = useState(undefined);
@@ -31,14 +32,14 @@ const TaskModalForm = () => {
             dispatch(
               toastAction.showToast({
                 isOperationSucessfull: true,
-                msg: "Task Created Successfully",
+                msg: AppMessage.TaskCreatedMsg,
               })
             );
           } else {
             dispatch(
               toastAction.showToast({
                 isOperationSucessfull: false,
-                msg: "Something went wrong while creating task",
+                msg: AppMessage.TaskCreateErrorMsg,
               })
             );
           }
@@ -47,7 +48,7 @@ const TaskModalForm = () => {
           dispatch(
             toastAction.showToast({
               isOperationSucessfull: false,
-              msg: "Something went wrong while creating task",
+              msg: AppMessage.TaskCreateErrorMsg,
             })
           );
         });
@@ -62,14 +63,14 @@ const TaskModalForm = () => {
             dispatch(
               toastAction.showToast({
                 isOperationSucessfull: true,
-                msg: "Task Updated Successfully",
+                msg: AppMessage.TaskUpdateMsg,
               })
             );
           } else {
             dispatch(
               toastAction.showToast({
                 isOperationSucessfull: false,
-                msg: "Something went wrong while updating task",
+                msg: AppMessage.TaskUpdateErrorMsg,
               })
             );
           }
@@ -79,7 +80,7 @@ const TaskModalForm = () => {
           dispatch(
             toastAction.showToast({
               isOperationSucessfull: false,
-              msg: "Something went wrong while updating task",
+              msg: AppMessage.TaskUpdateErrorMsg,
             })
           );
         });
@@ -93,7 +94,7 @@ const TaskModalForm = () => {
     dispatch(
       toastAction.showToast({
         isOperationSucessfull: true,
-        msg: "Candidate Created Successfully",
+        msg: AppMessage.TaskCreatedMsg,
       })
     );
   };

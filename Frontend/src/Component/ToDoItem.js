@@ -4,6 +4,7 @@ import { toDoActions } from "../store/task-state";
 import taskAction from "../store/taskAction";
 import axiosFetch from "../axios/axios-config";
 import { toastAction } from "../store/toast-state";
+import AppMessage from "../Common/AppMessage";
 const ToDoItem = (props) => {
   const { id, name, remarks } = props;
   const dispatch = useDispatch();
@@ -21,14 +22,14 @@ const ToDoItem = (props) => {
           dispatch(
             toastAction.showToast({
               isOperationSucessfull: true,
-              msg: "Task Deleted Successfully",
+              msg: AppMessage.TaskDeleteMsg,
             })
           );
         } else {
           dispatch(
             toastAction.showToast({
               isOperationSucessfull: false,
-              msg: "Error while deleting Task",
+              msg: AppMessage.TaskDeleteErrorMsg,
             })
           );
         }
@@ -37,7 +38,7 @@ const ToDoItem = (props) => {
         dispatch(
           toastAction.showToast({
             isOperationSucessfull: false,
-            msg: "Error while deleting Task",
+            msg: AppMessage.TaskDeleteErrorMsg,
           })
         );
       });
